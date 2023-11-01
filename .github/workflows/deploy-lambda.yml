@@ -36,7 +36,7 @@ jobs:
       run: |
         cd code-lambda-aws-teste
         zip -r lambda.zip .
-        aws lambda create-function --function-name lambda-autenticacao --runtime python3.9 --role arn:aws:iam::731628207007:role/authentication --handler index.handler --zip-file fileb://lambda.zip
+        aws lambda create-function --function-name lambda-autenticacao --runtime python3.11 --role arn:aws:iam::731628207007:role/authentication --handler index.handler --zip-file fileb://lambda.zip
       env:
         AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
         AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
