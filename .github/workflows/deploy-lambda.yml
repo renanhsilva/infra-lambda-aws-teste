@@ -35,6 +35,7 @@ jobs:
             aws lambda update-function-code \
               --function-name my-function \
               --zip-file fileb://function.zip
+              echo "Function updated"
           else
             aws lambda create-function \
               --function-name my-function \
@@ -42,4 +43,5 @@ jobs:
               --handler app.lambda_handler \
               --runtime python3.8 \
               --role arn:aws:iam::731628207007:role/authentication
+              echo "Function created"
           fi
