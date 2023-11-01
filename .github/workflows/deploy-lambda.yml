@@ -7,7 +7,7 @@ on:
 
 jobs:
   deploy:
-    runs-on: ubuntu-latest
+    runs-on: alpine-latest
 
     steps:
     - name: Checkout repository
@@ -16,7 +16,7 @@ jobs:
     - name: Set up Python
       uses: actions/setup-python@v2
       with:
-        python-version: 3.11  # Escolha a versão do Python apropriada
+        python-version: 3.9 
 
     - name: Clone Lambda Repository
       run: |
@@ -27,7 +27,7 @@ jobs:
     - name: Install Lambda Dependencies
       run: |
         cd code-lambda-aws-teste
-        pip install -r requirements.txt  # Instala as dependências Python a partir do arquivo requirements.txt
+        pip install -r requirements.txt 
       env:
         AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
         AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
@@ -36,7 +36,7 @@ jobs:
       run: |
         cd code-lambda-aws-teste
         zip -r lambda.zip .
-        aws lambda create-function --function-name lambda-autenticacao --runtime python3.11 --role arn:aws:iam::731628207007:role/authentication --handler index.handler --zip-file fileb://lambda.zip
+        aws lambda create-function --function-name lambda-autenticacao --runtime python3.9 --role arn:aws:iam::731628207007:role/authentication --handler index.handler --zip-file fileb://lambda.zip
       env:
         AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
         AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
