@@ -26,7 +26,7 @@ jobs:
 
      - name: Package Lambda Code
       run: |
-        zip -r lambda.zip ./app
+        zip -r lambda.zip .
       working-directory: ${{ github.workspace }}
 
     - name: Deploy Lambda
