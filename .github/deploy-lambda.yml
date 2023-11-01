@@ -1,0 +1,42 @@
+name: Deploy Lambda
+
+on:
+  push:
+    branches:
+      - develop
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.9  # Escolha a versão do Python apropriada
+
+    - name: Clone Lambda Repository
+      run: |
+        git clone https://github.com/renanhsilva/code-lambda-aws-teste
+      env:
+        GIT_TERMINAL_PROMPT: 0
+
+    - name: Install Lambda Dependencies
+      run: |
+        cd code-lambda-aws-teste
+        pip install -r requirements.txt  # Instala as dependências Python a partir do arquivo requirements.txt
+      env:
+        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+
+    - name: Deploy Lambda
+      run: |
+        cd code-lambda-aws-teste
+        zip -r lambda.zip .
+        aws lambda create-function --function-name lambda-autenticacao --runtime python3.9 --role <IAM_ROLE_ARN> --handler index.handler --zip-file fileb://lambda.zip
+      env:
+        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
