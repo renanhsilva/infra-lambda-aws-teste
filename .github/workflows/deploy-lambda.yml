@@ -24,10 +24,11 @@ jobs:
         sudo apt-get install -y awscli
       shell: bash
 
-     - name: Package Lambda Code
+    - name: Package Lambda Code
       run: |
-        zip -r lambda.zip ./app
-      working-directory: ${{ github.workspace }}
+        cd app  # Assuming your code is in a folder named 'app'
+        zip -r lambda.zip .
+      working-directory: ./app
 
     - name: Deploy Lambda
       run: |
