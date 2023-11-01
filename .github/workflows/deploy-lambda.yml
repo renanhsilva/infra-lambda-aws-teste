@@ -22,13 +22,26 @@ jobs:
           python3 -m venv env
           source env/bin/activate
           pip install -r app/requirements.txt
-      - name: Deploy Lambda function
+      - name: Check if function exists
+        id: check_function
+        run: |
+          aws lambda get-function --function-name my-function || echo "::set-output name=function_exists::false"
+          echo "::set-output name=function_exists::true"
+      - name: Update or Create Lambda function code
+        if: steps.check_function.outputs.function_exists == 'true'
         run: |
           cd app
           zip -r function.zip .
-          aws lambda create-function \
+          aws lambda update-function-code \
             --function-name my-function \
-            --runtime python3.8 \
-            --handler lambda_function.lambda_handler \
-            --zip-file fileb://function.zip \
-            --role arn:aws:iam::731628207007:role/authentication
+            --zip-file fileb://function.zip
+        else:
+          run: |
+            cd app
+            zip -r function.zip .
+            aws lambda create-function \
+              --function-name my-function \
+              --zip-file fileb://function.zip \
+              --handler app.lambda_handler \
+              --runtime python3.8 \
+              --role arn:aws:iam::731628207007:role/authentication
