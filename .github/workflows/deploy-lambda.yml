@@ -24,21 +24,15 @@ jobs:
         sudo apt-get install -y awscli
       shell: bash
 
-    - name: Package Lambda Code
+     - name: Package Lambda Code
       run: |
         zip -r lambda.zip .
       working-directory: ${{ github.workspace }}
 
     - name: Deploy Lambda
       run: |
-        aws lambda create-function --function-name lambda-autenticacao --runtime python3.9 --role arn:aws:iam::731628207007:role/authentication --handler index.handler --zip-file fileb://lambda.zip
-      env:
-        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-      # Add a debug step to print the output of the 'aws lambda create-function' command
-    - name: Debug
-      run: |
-        aws lambda create-function --function-name lambda-autenticacao --runtime python3.9 --role arn:aws:iam::731628207007:role/authentication --handler index.handler --zip-file fileb://lambda.zip
+        aws lambda create-function --function-name lambda-autenticacao --runtime python3.9 --role arn:aws:iam::731628207007:role/authentication --handler index.handler --zip-file fileb://lambda.zip > output.log
+        cat output.log
       env:
         AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
         AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
