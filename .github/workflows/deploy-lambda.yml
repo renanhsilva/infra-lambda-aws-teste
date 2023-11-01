@@ -31,9 +31,13 @@ jobs:
 
     - name: Deploy Lambda
       run: |
-        echo "Current directory: $(pwd)"
-        echo "AWS_ACCESS_KEY_ID: $AWS_ACCESS_KEY_ID"  # Print AWS_ACCESS_KEY_ID for debugging
-        echo "AWS_SECRET_ACCESS_KEY: $AWS_SECRET_ACCESS_KEY"  # Print AWS_SECRET_ACCESS_KEY for debugging
+        aws lambda create-function --function-name lambda-autenticacao --runtime python3.9 --role arn:aws:iam::731628207007:role/authentication --handler index.handler --zip-file fileb://lambda.zip
+      env:
+        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      # Add a debug step to print the output of the 'aws lambda create-function' command
+    - name: Debug
+      run: |
         aws lambda create-function --function-name lambda-autenticacao --runtime python3.9 --role arn:aws:iam::731628207007:role/authentication --handler index.handler --zip-file fileb://lambda.zip
       env:
         AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
