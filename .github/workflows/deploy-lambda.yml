@@ -30,4 +30,5 @@ jobs:
             --function-name my-function \
             --runtime python3.8 \
             --handler lambda_function.lambda_handler \
-            --zip-file fileb://function.zip
+            --zip-file fileb://function.zip \
+            --role arn:aws:iam::731628207007:role/authentication
