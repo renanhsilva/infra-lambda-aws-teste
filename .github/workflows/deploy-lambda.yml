@@ -29,6 +29,7 @@ jobs:
         zip -r lambda.zip .
       working-directory: ${{ github.workspace }}
 
+
     - name: Deploy Lambda
       run: |
         aws lambda create-function --function-name lambda-autenticacao --runtime python3.9 --role arn:aws:iam::731628207007:role/authentication --handler index.handler --zip-file fileb://lambda.zip > output.log
