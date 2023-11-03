@@ -29,7 +29,7 @@ jobs:
       - name: Create Lambda deployment package
         run: |
           cd app  # Substitua pelo diretório da sua função Lambda
-          zip -r function.zip 
+          zip -r function.zip .
 
       - name: Check if function exists
         id: check_function
