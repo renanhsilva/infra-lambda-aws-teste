@@ -25,8 +25,11 @@ jobs:
       - name: Check if function exists
         id: check_function
         run: |
-          aws lambda get-function --function-name my-function || echo "::set-output name=function_exists::false"
-          echo "::set-output name=function_exists::true"
+          if aws lambda get-function --function-name my-function || echo "::set-output name=function_exists::false"
+            echo "::set-output name=function_exists::true"
+          else
+            echo "::set-output name=function_exists::true"
+          fi
       - name: Update or Create Lambda function code
         run: |
           cd app
