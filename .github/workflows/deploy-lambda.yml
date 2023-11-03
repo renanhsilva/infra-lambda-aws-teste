@@ -23,9 +23,9 @@ jobs:
         run: |
           python3 -m venv env
           source env/bin/activate
-          pip install -r app/requirements.txt
-          cd app
-          zip -r function.zip .
+          cd app 
+          pip install -r requirements.txt
+          zip -r function.zip 
         working-directory: ${{ github.workspace }}/app
 
       - name: Check if function exists
