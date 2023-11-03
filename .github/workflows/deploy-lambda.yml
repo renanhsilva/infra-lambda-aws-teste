@@ -32,9 +32,9 @@ jobs:
         id: check_function
         run: |
           if aws lambda get-function --function-name my-function; then
-             aws lambda update-function-code \
-              --function-name my-function \
-              --zip-file fileb://$GITHUB_WORKSPACE/app/function.zip
+            aws lambda update-function-code \
+            --function-name my-function \
+            --zip-file fileb://$GITHUB_WORKSPACE/app/function.zip
             echo "Function updated"
           else
             aws lambda create-function \
