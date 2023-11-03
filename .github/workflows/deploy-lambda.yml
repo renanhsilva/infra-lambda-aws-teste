@@ -1,9 +1,9 @@
 name: Deploy Lambda
 
 on:
-  pull_request:
+  push:
     branches:
-      - develop
+      - infra
 
 jobs:
   deploy:
