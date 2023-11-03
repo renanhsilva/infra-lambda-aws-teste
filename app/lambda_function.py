@@ -2,7 +2,7 @@ import json
 import boto3
 import jwt
 
-SECRET_NAME = "seu-secret-name"  # Nome do segredo no AWS Secret Manager
+SECRET_NAME = "token-secret"  # Nome do segredo no AWS Secret Manager
 
 def lambda_handler(event, context):
     # Valide o CPF a partir do evento de entrada (event)
