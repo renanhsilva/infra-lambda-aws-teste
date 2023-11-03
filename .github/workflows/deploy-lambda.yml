@@ -38,10 +38,10 @@ jobs:
             echo "Function updated"
           else
             aws lambda create-function \
-              --function-name my-function \
-              --zip-file fileb://$GITHUB_WORKSPACE/app/function.zip
-              --handler app.lambda_handler \
-              --runtime python3.8 \
-              --role arn:aws:iam::731628207007:role/authentication
+            --function-name my-function \
+            --zip-file fileb://$GITHUB_WORKSPACE/app/function.zip \
+            --handler app.lambda_handler \
+            --runtime python3.8 \
+            --role arn:aws:iam::731628207007:role/authentication
             echo "Function created"
           fi
