@@ -21,12 +21,15 @@ jobs:
 
       - name: Install dependencies and create Lambda package
         run: |
-          python3 -m venv env
-          source env/bin/activate
-          cd app 
-          pip install -r requirements.txt
+          python -m venv venv
+          source venv/bin/activate
+          pip install -r requirements.txt 
+        working-directory: ${{ github.workspace }}
+
+      - name: Create Lambda deployment package
+        run: |
+          cd app  # Substitua pelo diretório da sua função Lambda
           zip -r function.zip 
-        working-directory: ${{ github.workspace }}/app
 
       - name: Check if function exists
         id: check_function
