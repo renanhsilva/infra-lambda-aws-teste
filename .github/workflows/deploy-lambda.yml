@@ -24,8 +24,8 @@ jobs:
           python -m venv venv
           source venv/bin/activate
           pip install -r requirements.txt -t ./app
-          cd app  # Substitua pelo diretório da sua função Lambda
-          zip -r $GITHUB_WORKSPACE/function.zip .
+          cd app
+          zip -r $GITHUB_WORKSPACE/app/function.zip .
         working-directory: ${{ github.workspace }}
 
       - name: Check if function exists
@@ -34,12 +34,12 @@ jobs:
           if aws lambda get-function --function-name my-function; then
              aws lambda update-function-code \
               --function-name my-function \
-              --zip-file fileb://$GITHUB_WORKSPACE/app/function.zip  # Use o caminho correto para o arquivo ZIP
+              --zip-file fileb://$GITHUB_WORKSPACE/app/function.zip
             echo "Function updated"
           else
             aws lambda create-function \
               --function-name my-function \
-              --zip-file fileb://$GITHUB_WORKSPACE/app/function.zip  # Use o caminho correto para o arquivo ZIP
+              --zip-file fileb://$GITHUB_WORKSPACE/app/function.zip
               --handler app.lambda_handler \
               --runtime python3.8 \
               --role arn:aws:iam::731628207007:role/authentication
