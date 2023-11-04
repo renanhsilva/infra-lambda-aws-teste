@@ -26,13 +26,13 @@ jobs:
           pip install -r requirements.txt -t ./generate_token -t ./check_token
         working-directory: ${{ github.workspace }}
 
-        - name: Criando pacote das Lambdas
-          run: |
+      - name: Criando pacote das Lambdas
+        run: |
           zip -r lambda_generate_token.zip  $GITHUB_WORKSPACE/generate_token/
           zip -r lambda_check_token.zip  $GITHUB_WORKSPACE/check_token/
         
-        - name: Criando Lambda generate_token
-        id: check_function
+      - name: Criando Lambda generate_token
+        id: create_generate_token_function
         run: |
           if aws lambda get-function --function-name generate_token; then
             aws lambda update-function-code \
@@ -49,8 +49,8 @@ jobs:
             echo "Function created"
           fi
 
-        - name: Criando Lambda check_token
-        id: check_function
+      - name: Criando Lambda check_token
+        id: create_check_token_function
         run: |
           if aws lambda get-function --function-name check_token; then
             aws lambda update-function-code \
