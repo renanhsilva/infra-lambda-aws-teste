@@ -33,6 +33,7 @@ jobs:
           cd ..
           cd check_token
           zip -r lambda_check_token.zip .
+          cd ..
         
       - name: Lambda generate_token
         id: create_generate_token_function
