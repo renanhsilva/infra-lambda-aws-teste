@@ -1,5 +1,6 @@
 import json
 import jwt
+import boto3
 
 SECRET_NAME = "token-secret"  # Nome do segredo no AWS Secret Manager
 
