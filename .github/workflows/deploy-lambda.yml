@@ -28,8 +28,11 @@ jobs:
 
       - name: Criando pacote das Lambdas
         run: |
-          zip -r lambda_generate_token.zip  $GITHUB_WORKSPACE/generate_token
-          zip -r lambda_check_token.zip $GITHUB_WORKSPACE/check_token
+          cd generate_token
+          zip -r lambda_generate_token.zip .
+          cd ..
+          cd check_token
+          zip -r lambda_check_token.zip .
         
       - name: Lambda generate_token
         id: create_generate_token_function
