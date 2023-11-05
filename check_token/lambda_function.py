@@ -11,7 +11,7 @@ def lambda_handler(event, context):
     if not jwt_token:
         return {
             "statusCode": 400,
-            "body": json.dumps({"error": "Token JWT não fornecido"})
+            "body": json.dumps({"error": "Token JWT nao fornecido"})
         }
 
     # Recupera o segredo do AWS Secret Manager
@@ -26,7 +26,7 @@ def lambda_handler(event, context):
     secret = secret_value["SecretString"]
 
     # Valida o token JWT
-    valid, cpf = validate_jwt_token(jwt_token, secret)
+    valid = validate_jwt_token(jwt_token, secret)
 
     if valid:
         return {
