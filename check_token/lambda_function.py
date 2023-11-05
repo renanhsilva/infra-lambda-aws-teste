@@ -31,7 +31,7 @@ def lambda_handler(event, context):
     if valid:
         return {
             "statusCode": 200,
-            "body": json.dumps({"cpf": cpf})
+            "body": json.dumps({"cpf": cpf, "status": "active"})
         }
     else:
         return {
@@ -61,8 +61,6 @@ def validate_jwt_token(jwt_token, secret):
         else:
             return False, None
     except jwt.ExpiredSignatureError:
-        # Se o token estiver expirado, retorne False
         return False, None
     except jwt.InvalidTokenError:
-        # Se ocorrer um erro na decodificação, retorne False
         return False, None

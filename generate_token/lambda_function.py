@@ -5,8 +5,16 @@ import jwt
 SECRET_NAME = "token-secret"  # Nome do segredo no AWS Secret Manager
 
 def lambda_handler(event, context):
-    # Valide o CPF a partir do evento de entrada (event)
+    # Recebe o CPF a partir do evento de entrada 
     cpf = event.get("cpf")
+
+    if not cpf:
+        return {
+            "statusCode": 400,
+            "body": json.dumps({"error": "CPF nao fornecido"})
+        }
+    
+    # CPF deve ser válido
     if not validate_cpf(cpf):
         return {
             "statusCode": 400,
@@ -34,7 +42,7 @@ def lambda_handler(event, context):
 
 def validate_cpf(cpf):
     # Implemente a validação do CPF aqui
-    if cpf == "12345678900":
+    if cpf == "12345678900": #Somente um exemplo
         return True
     pass
 
