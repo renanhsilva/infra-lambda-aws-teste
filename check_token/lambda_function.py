@@ -36,7 +36,7 @@ def lambda_handler(event, context):
     else:
         return {
             "statusCode": 401,
-            "body": json.dumps({"error": "Token JWT inválido ou expirado"})
+            "body": json.dumps({"error": "Token JWT invalido ou expirado"})
         }
 
 def get_secret_value(secret_name):
