@@ -23,12 +23,13 @@ jobs:
         run: |
           python -m venv venv
           source venv/bin/activate
+          pip install -r requirements.txt -t ./generate_token -t ./check_token
         working-directory: ${{ github.workspace }}
 
       - name: Criando pacote das Lambdas
         run: |
-          zip -r lambda_generate_token.zip  ./generate_token
-          zip -r lambda_check_token.zip ./check_token
+          zip -r lambda_generate_token.zip  $GITHUB_WORKSPACE/generate_token
+          zip -r lambda_check_token.zip $GITHUB_WORKSPACE/check_token
         
       - name: Lambda generate_token
         id: create_generate_token_function
