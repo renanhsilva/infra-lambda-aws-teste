@@ -31,7 +31,7 @@ def lambda_handler(event, context):
     if valid:
         return {
             "statusCode": 200,
-            "body": json.dumps({"cpf": cpf, "status": "active"})
+            "body": json.dumps({"status": "active"})
         }
     else:
         return {
@@ -57,10 +57,10 @@ def validate_jwt_token(jwt_token, secret):
         # Verificar se o payload do token contém o campo "cpf"
         if "cpf" in token_payload:
             cpf = token_payload["cpf"]
-            return True, cpf
+            return True
         else:
-            return False, None
+            return False
     except jwt.ExpiredSignatureError:
-        return False, None
+        return False
     except jwt.InvalidTokenError:
-        return False, None
+        return False
