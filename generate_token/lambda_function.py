@@ -10,7 +10,7 @@ def lambda_handler(event, context):
     if not validate_cpf(cpf):
         return {
             "statusCode": 400,
-            "body": json.dumps({"error": "CPF inválido"})
+            "body": json.dumps({"error": "CPF invalido"})
         }
 
     # Recupere o segredo do AWS Secret Manager
