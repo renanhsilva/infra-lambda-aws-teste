@@ -34,7 +34,6 @@ def lambda_handler(event, context):
 
 def validate_cpf(cpf):
     # Implemente a validação do CPF aqui
-    # Retorne True se o CPF for válido e False se for inválido
     if cpf == "12345678900":
         return True
     pass

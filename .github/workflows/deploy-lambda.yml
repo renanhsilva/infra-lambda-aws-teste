@@ -28,8 +28,8 @@ jobs:
 
       - name: Criando pacote das Lambdas
         run: |
-          zip -r lambda_generate_token.zip  ./generate_token
-          zip -r lambda_check_token.zip ./check_token
+          zip -rj lambda_generate_token.zip  ./generate_token
+          zip -rj lambda_check_token.zip ./check_token
         
       - name: Criando Lambda generate_token
         id: create_generate_token_function
