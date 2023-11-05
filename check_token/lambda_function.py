@@ -11,7 +11,7 @@ def lambda_handler(event, context):
     if not jwt_token:
         return {
             "statusCode": 400,
-            "body": json.dumps({"error": "Token JWT nao fornecido"})
+            "body": json.dumps({"error": "Token JWT não fornecido"})
         }
 
     # Recupera o segredo do AWS Secret Manager
@@ -36,7 +36,7 @@ def lambda_handler(event, context):
     else:
         return {
             "statusCode": 401,
-            "body": json.dumps({"error": "Token JWT invalido ou expirado"})
+            "body": json.dumps({"error": "Token JWT inválido ou expirado"})
         }
 
 def get_secret_value(secret_name):
@@ -48,3 +48,21 @@ def get_secret_value(secret_name):
         return json.loads(response["SecretString"])
     else:
         return None
+
+def validate_jwt_token(jwt_token, secret):
+    try:
+        # Decodificar o token JWT usando a chave secreta
+        token_payload = jwt.decode(jwt_token, secret, algorithms=["HS256"])
+
+        # Verificar se o payload do token contém o campo "cpf"
+        if "cpf" in token_payload:
+            cpf = token_payload["cpf"]
+            return True, cpf
+        else:
+            return False, None
+    except jwt.ExpiredSignatureError:
+        # Se o token estiver expirado, retorne False
+        return False, None
+    except jwt.InvalidTokenError:
+        # Se ocorrer um erro na decodificação, retorne False
+        return False, None
