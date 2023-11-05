@@ -23,7 +23,8 @@ jobs:
         run: |
           python -m venv venv
           source venv/bin/activate
-          pip install -r requirements.txt -t ./generate_token -t ./check_token
+          pip install -r requirements.txt -t ./generate_token 
+          pip install -r requirements.txt -t ./check_token
         working-directory: ${{ github.workspace }}
 
       - name: Criando pacote das Lambdas
